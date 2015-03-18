@@ -247,7 +247,32 @@ angular.forEach(clone, function(cloneEl) {
 
 ```
 
-Aside from some error-checking/validation, this is all the processing we have to do.
+### Error Handling 
+
+
+This is all the DOM manipulation we have to do ... provided that everything goes as planned.  What if the component user forgets to pass in a transclude-to attribute on an element? Or it's invalid?
+
+In that case, the directive will never find a valid destination (as it will be looking for a nonexistent destinationId) -- which means the clone element in question will never be properly appended to the DOM. 
+
+Because of that, it won’t be properly destroyed when the scope is destroyed.  This causes a memory leak. 
+
+Let’s check to see that we actually are able to find a target destination - this will check not only for a transclude-id but that it is a valid one - and if not, we can clean up the offending element.  
+
+```javascript
+angular.forEach(clone, function(cloneEl) {
+  var destinationId = cloneEl.attributes["transclude-to"].value;
+  var destination = temp.find('[transclude-id="'+destinationId+'"]');
+  if (destination.length) {
+    destination.append(cloneEl);
+  } else {
+    cloneEl.remove();
+  }
+});
+
+```
+
+That should do it.
+
 
 ### The transclude function
 
