@@ -252,11 +252,11 @@ angular.forEach(clone, function(cloneEl) {
 
 This is all the DOM manipulation we have to do ... provided that everything goes as planned.  What if the component user forgets to pass in a transclude-to attribute on an element? Or it's invalid?
 
-In that case, the directive will never find a valid destination (as it will be looking for a nonexistent destinationId) -- which means the clone element in question will never be properly appended to the DOM. 
+In that case, the directive will never find a valid `destination` (as it will be looking for a nonexistent `destinationId`) -- which means the clone element in question will never be properly appended to the DOM. 
 
 Because of that, it won’t be properly destroyed when the scope is destroyed.  This causes a memory leak. 
 
-Let’s check to see that we actually are able to find a target destination - this will check not only for a transclude-id but that it is a valid one - and if not, we can clean up the offending element.  
+We can't let that happen, so let’s check to see that we actually are able to find a target destination - this will check not only for a transclude-id but that it is a valid one - and if not, we can clean up the offending element.  
 
 ```javascript
 angular.forEach(clone, function(cloneEl) {
@@ -276,7 +276,7 @@ That should do it.
 
 ### The transclude function
 
-We’ve been assuming access to a `clone` variable that represents the user’s content—how do we actually get access to that?
+While writing our custom matching process, we’ve been assuming access to a `clone` variable that represents the user’s content—how do we actually get access to that?
 
 The answer is something called the `transclude` function.  
 
@@ -408,4 +408,6 @@ If our component user uses the markup from the earlier example:
 
 ![Final ot-site output](https://content-na.drive.amazonaws.com/cdproxy/templink/_y4Zj0oljkNSvPa5MRNwjQ7m4EqVyzjul7wEWgSFFSQLAYspN?viewBox=1440)
 
-Stay tuned for Part 3!
+That's it for container components in Angular 1.3!  
+
+Stay tuned for Part 3, which will cover Angular 2.
