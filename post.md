@@ -156,7 +156,7 @@ angular.module("ot-components")
 
 ...we would get something like this:
 
-![Content repeating]()
+![Content repeating in ot-site](https://content-na.drive.amazonaws.com/cdproxy/templink/dasXWt-e5efGIZu9jvusOKZhMUMZ3QH6d13NeKZHLbMLAYspN?viewBox=1440)
 
 
 Clearly, that's not ideal.  What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon ng-transclude and write our own custom transclusion functionality.
