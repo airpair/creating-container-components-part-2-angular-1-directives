@@ -1,7 +1,7 @@
 
 TODO
 
-Welcome to Part 2 of our 3-part series on container components!  If you are just joining in, you first might want to visit [Part 1]() for an introduction to "ot-site" and templating in general.  **TODO - link**
+Welcome to Part 2 of our 3-part series on container components!  If you are just joining in, you first might want to visit [Part 1](https://www.airpair.com/posts/review/55032890c878110c00117af1) for an introduction to "ot-site" and templating in general.
 
 This tutorial assumes some knowledge of writing Angular directives.  If you need more background on directives, the [official directive guide](https://docs.angularjs.org/guide/directive) is a good place to start.  
 
