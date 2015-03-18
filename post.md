@@ -1,6 +1,4 @@
 
-TODO
-
 Welcome to Part 2 of our 3-part series on container components!  If you are just joining in, you first might want to visit [Part 1](https://www.airpair.com/posts/review/55032890c878110c00117af1) for an introduction to "ot-site" and templating in general.
 
 This tutorial assumes some knowledge of writing Angular directives.  If you need more background on directives, the [official directive guide](https://docs.angularjs.org/guide/directive) is a good place to start.  
@@ -46,7 +44,7 @@ angular.module("ot-components")
 
 That's it!  It's pretty trivial to create the empty component. The tricky part is ahead - if it's going to be a true "container", we'll need add the ability for component users to pass in their content.  
 
-### Intro to Transclusion 
+## Intro to Transclusion 
 
 We have several options for passing data into a directive in Angular. The most ubiquitious method is using HTML attributes - it's relatively straightforward to leverage attributes to set toggles in your directive or pass in small strings of text.
 
@@ -161,7 +159,7 @@ angular.module("ot-components")
 
 Clearly, that's not ideal.  What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon ng-transclude and write our own custom transclusion functionality.
 
-### Custom Transclusion
+## Custom Transclusion
 
 To support multiple entry points, first we will need to tweak how we ask our component user to pass in content.  The user needs some way to indicate to the directive where each element they add should go.  
 
@@ -321,7 +319,7 @@ angular.module("ot-components")
 
 There is only one last thing we have to do to make this a viable component...
 
-### Isolate Scope
+## Isolate Scope
 
 ...scope.  Hooray!  The obvious choice for a reusable component is to use an isolate scope - which you can set by adding an object to the scope property.
 
