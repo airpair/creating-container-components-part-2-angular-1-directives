@@ -50,7 +50,7 @@ We have several options for passing data into a directive in Angular. The most u
 
 For example, to set a title, a directive might expose a "title" attribute like this:
 
-```
+```markup
 <ot-site title="My App">
 </ot-site>
 ```
@@ -62,7 +62,8 @@ Transclusion allows component users to add their own custom template by insertin
 If ot-site were a transcluding directive - and the user wanted to pass in a greeting - their markup would look something like this:
 
 **component user's markup**
-```
+
+```markup
 <ot-site>
   <div> Hello world! </div>
 </ot-site>
@@ -113,7 +114,7 @@ Let's say that our component user wanted to pass in something more complicated t
 
 **component user markup**
 
-```
+```markup
 <ot-site>
   <div>
     I render in head.
@@ -166,7 +167,7 @@ To support multiple entry points, first we will need to tweak how we ask our com
 How about requiring a "transclude-to" attribute on each element that acts as a sort of "shipping label"?  
 
 **component user markup**
-```
+```markup
 <ot-site>
   <div transclude-to="head">
     I render in head.
@@ -362,7 +363,7 @@ angular.module("ot-components")
 That's our final implementation!  If our component user passes in the strings from the example earlier:
 
 **component user markup**
-```
+```markup
 <ot-site>
   <div transclude-to="head">
     I render in head.
