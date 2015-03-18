@@ -5,7 +5,7 @@ This tutorial assumes some knowledge of writing Angular directives.  If you need
 
 ## Let's Get Started
 
-In this tutorial, we will be using an Angular 1.3 directive to re-create the "ot-site" container component from Part 1.  As a reminder, the empty container looks something like this:
+In this tutorial, we will be using an Angular 1.3 directive to re-create the `ot-site` container component from Part 1.  As a reminder, the empty container looks something like this:
 
 ![Empty ot-site container](https://content-na.drive.amazonaws.com/cdproxy/templink/IC1Wtxw34nmKQ_xm9_738AvsfDB0OJp9gSvFpn-6SN8LAYspN?viewBox=1440)
 
@@ -59,7 +59,7 @@ However, for an application container, attributes won't be flexible enough. Can 
 
 Transclusion allows component users to add their own custom template by inserting it between the directive's opening and closing tags.  That user template will then be appended to some previously-agreed-upon part of the directive’s internal template -- while maintaining a connection to the original scope from which it came. This last part is essential because it allows any Angular bindings in the user's template to come with it and work as expected. 
 
-If ot-site were a transcluding directive - and the user wanted to pass in a greeting - their markup would look something like this:
+If `ot-site` were a transcluding directive - and the user wanted to pass in a greeting - their markup would look something like this:
 
 **component user's markup**
 
@@ -69,7 +69,7 @@ If ot-site were a transcluding directive - and the user wanted to pass in a gree
 </ot-site>
 ```
 
-So how do we make ot-site a transcluding directive?
+So how do we make `ot-site` a transcluding directive?
 
 The first thing we have to do is indicate to Angular that we will be transcluding by setting the "transclude" property to true in the DDO.
 
@@ -104,9 +104,9 @@ Now how do we actually take the clone that we saved and add it to the right plac
 
 ### Adding the User's Content
 
-For most transclusion situations, you'll simply want to use the core Angular directive, ["ng-transclude"](https://docs.angularjs.org/api/ng/directive/ngTransclude).  If you add "ng-transclude" to any element in your directive's template, a clone of the user's content will simply be appended to that element.
+For most transclusion situations, you'll simply want to use the core Angular directive, [ng-transclude](https://docs.angularjs.org/api/ng/directive/ngTransclude).  If you add `ng-transclude` to any element in your directive's template, a clone of the user's content will simply be appended to that element.
 
-However, ng-transclude doesn't perform any extra processing to separate out different parts of the user template.  It will always append the **entire** block of content wherever it appears.  
+However, `ng-transclude` doesn't perform any extra processing to separate out different parts of the user template.  It will always append the **entire** block of content wherever it appears.  
 
 Why is this a problem for us?  Our container component should support passing content into each of our three sections separately.
 
@@ -129,7 +129,7 @@ Let's say that our component user wanted to pass in something more complicated t
 
 ```
 
-If we simply added an "ng-transclude" directive to each section that supports custom content (as below)...
+If we simply added an `ng-transclude` directive to each section that supports custom content (as below)...
 
 
 ```javascript
@@ -158,7 +158,7 @@ angular.module("ot-components")
 ![Content repeating in ot-site](https://content-na.drive.amazonaws.com/cdproxy/templink/dasXWt-e5efGIZu9jvusOKZhMUMZ3QH6d13NeKZHLbMLAYspN?viewBox=1440)
 
 
-Clearly, that's not ideal.  What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon ng-transclude and write our own custom transclusion functionality.
+Clearly, that's not ideal.  What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon `ng-transclude` and write our own custom transclusion functionality.
 
 ## Custom Transclusion
 
@@ -212,13 +212,13 @@ We have labels on each side, so now we can write custom DOM manipulation logic t
 
 Let's step through what that might look like, taking for granted for now that we have access to a clone of the user's content (we'll revisit that later).
 
-First thing, we need to loop through every element in the clone...
+First thing, we need to loop through every element in the `clone`...
 
 ```javascript
 angular.forEach(clone, function(cloneEl) {});
 ```
 
-For each cloneEl...
+For each `cloneEl`...
 
 1) We need to grab the value of that element’s transclude-to attribute. That will give us the ID of our destination element.
 
@@ -233,7 +233,7 @@ var destinationId = cloneEl.attributes["transclude-to"].value;
 var destination = temp.find('[transclude-id="'+destinationId+'"]');
 ```
 
-3) Lastly, we need to append the clone to its target.
+3) Lastly, we need to append the clone element to its target.
 
 ```javascript
 destination.append(cloneEl);
@@ -263,16 +263,16 @@ transclude(function(clone) {
 });
 ```
 
-The transclude function is a special linking function that becomes available after you set transclude to “true”.  It takes a callback function that has access to a clone of the user’s content, so you can perform any necessary processing or matching in that context.
+The transclude function is a special linking function that becomes available after you set transclude to `true`.  It takes a callback function that has access to a clone of the user’s content, so you can perform any necessary processing or matching in that context.
 
 The transclude function becomes available in three different locations in the directive definition: as the third parameter of the compile function, as an injectable of the controller, and as the fifth parameter of the link function.   So which transclude function should you use?
 
 ```javascript
-compile: function(tElem, tAttrs, transclude) 
+compile: function(tElem, tAttrs, transclude) {...}
 
-controller: function($scope, $element, $transclude)
+controller: function($scope, $element, $transclude) {...}
 
-link: function(scope, iElem, iAttrs, ctrl, transclude)
+link: function(scope, iElem, iAttrs, ctrl, transclude) {...}
 ```
 
 The first thing to know is that not all transclude functions are the same.  The transclude function passed to you in the compile function is slightly different than the one passed to you in the controller and the link function. Unlike the latter two, it doesn’t auto-generate the correct transclusion scope for you.   Which means that, at best, you can only get it to work with broken bindings.  For this reason, it's actually been deprecated.
@@ -293,7 +293,7 @@ But this order isn’t great for DOM manipulation.  If you try to manipulate the
 
 *Design credit: [Rachael L Moore](http://morewry.com)*
 
-Generally speaking, the safest time for DOM manipulation is the link (aka post-link) function because a parent directive’s link function will run AFTER the child directives have already been found and linked.
+Generally speaking, the safest time for DOM manipulation is the link (aka post-link) function because a parent directive’s link function will run **after** the child directives have already been found and linked.
 
 So the link function is really the one we want to use. All we have to do is add a link function to our directive definition, grab the fifth parameter (the transclude function) and call it with the DOM manipulation we already wrote:
 
@@ -332,7 +332,8 @@ Absolutely.  Let’s take a look at the scope hierarchy you’d get with an isol
 
 *Design credit: Simon Attley*
 
-You can see that there are actually two ot-site scopes that are treated differently - the scope of the directive’s internal template (represented by the ot-site tags) and the scope of the user’s template (the divs in the middle here).   
+You can see that there are actually two `ot-site` scopes that are treated differently - the scope of the directive’s internal template (represented by the `ot-site` tags) and the scope of the user’s template (the `divs` in the middle here).   
+
 The directive’s template has to have an isolate scope, so it can be completely insulated from its environment.  If you look at the inheritance diagram on the right, you can see that it is completely isolated in its own box and won’t inherit anything.  
 
 However, given that our container is wrapping arbitrary content,we want the user to be able to pass in a template that may have bindings from the controller.  For this reason, the user’s template scope will not share that isolate scope, and instead will be a child of its outer scope - the controller scope. That way, it can inherit any properties from the controller that the user wants to pass in.
@@ -360,7 +361,9 @@ angular.module("ot-components")
 });
 ```
 
-That's our final implementation!  If our component user passes in the strings from the example earlier:
+That's our final implementation!  
+
+If our component user uses the markup from the earlier example:
 
 **component user markup**
 ```markup
