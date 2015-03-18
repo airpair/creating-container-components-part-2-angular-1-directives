@@ -283,7 +283,7 @@ Mostly, it's execution order.
 
 ![Directive life cycle, controller](https://content-na.drive.amazonaws.com/cdproxy/templink/aaKEXw9uELKBNTz0NnKCwqkJIZkgn0kgAbvNt8j1rcELAYspN?viewBox=1440)
 
-*Design credit: Rachael L Moore*
+*Design credit: [Rachael L Moore](http://morewry.com)*
 
 The controller of a parent directive will be instantiated before its child directives are linked.  This is why controllers are ideal for directive communication - the parent can define any shared methods/scope properties before the children will need to use them.
 
@@ -291,7 +291,7 @@ But this order isn’t great for DOM manipulation.  If you try to manipulate the
 
 ![Directive life cycle, post-link](https://content-na.drive.amazonaws.com/cdproxy/templink/h5iEt_VZs1DpiC-r9Pk5SNTBAfYMtnvbnGVefZeeCvQLAYspN?viewBox=1440)
 
-*Design credit: Rachael L Moore*
+*Design credit: [Rachael L Moore](http://morewry.com)*
 
 Generally speaking, the safest time for DOM manipulation is the link (aka post-link) function because a parent directive’s link function will run AFTER the child directives have already been found and linked.
 
