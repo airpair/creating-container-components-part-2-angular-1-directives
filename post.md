@@ -5,20 +5,24 @@ This tutorial assumes some knowledge of writing Angular directives.  If you need
 
 ## Let's Get Started
 
-In this tutorial, we will be using an Angular 1.3 directive to re-create the `ot-site` container component from Part 1.  As a reminder, the empty container looks something like this:
+In this tutorial, we will be using an Angular 1.3 directive to re-create the `ot-site` container component from Part 1 -- which will require us to explore some advanced strategies for transcluding in multiple points of a directive. Exciting!
+
+As a reminder, the empty container looks something like this:
 
 ![Empty ot-site container](https://content-na.drive.amazonaws.com/cdproxy/templink/IC1Wtxw34nmKQ_xm9_738AvsfDB0OJp9gSvFpn-6SN8LAYspN)
 
 We can break it down into 5 parts:
 
 
-* 3 sections into which arbitrary content can be added (header, menu, main)
+* 3 sections into which arbitrary content can be added (header, menu, body)
 
 * 2 static items that come with every usage (logo, footer)
 
 ![Empty ot-site container, labeled](https://content-na.drive.amazonaws.com/cdproxy/templink/iaubtyeI-HFVCoeI5jBZ0Ap4FNwC6Jr49H4VCXNTXyMLAYspN)
 
-First, let's build the empty scaffold.  All we have to do is add a `template` property to the normal directive definition, then drop in the appropriate HTML. It will look something like this:
+Before we dive into transclusion, let's first build the empty scaffold.  
+
+All we have to do is add a `template` property to the normal directive definition, then drop in the appropriate HTML. It will look something like this:
 
 ```javascript
 angular.module("ot-components")
@@ -39,7 +43,7 @@ angular.module("ot-components")
 });
 ```
 
-That's it!  It's pretty trivial to create the empty component. The tricky part is ahead—if it's going to be a true "container", we'll need add the ability for component users to pass in their content.  
+As you can see, it's pretty straightforward to create the empty component. The tricky part is ahead—if it's going to be a true "container", we'll need add the ability for component users to pass in their content.  
 
 ## Intro to Transclusion 
 
@@ -150,11 +154,13 @@ angular.module("ot-components")
 
 ![Content repeating in ot-site](https://content-na.drive.amazonaws.com/cdproxy/templink/dasXWt-e5efGIZu9jvusOKZhMUMZ3QH6d13NeKZHLbMLAYspN?viewBox=1440)
 
-Clearly, that's not ideal.  What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon `ng-transclude` and write our own custom transclusion functionality.
+Clearly, that's not ideal.  We wanted each string to render just once in its appropriate section - rather than everything rendering everywhere.
+
+What we really want is for each string to be dealt with individually, so it can be sent to the correct destination in our container.  To do so, we need to abandon `ng-transclude` and write our own custom transclusion functionality.
 
 ## Custom Transclusion
 
-To support multiple entry points, first we will need to tweak how we ask our component user to pass in content.  The user needs some way to indicate to the directive where each element they add should go.  
+To support multiple entry points, we will need to tweak how we ask our component user to pass in content.  The user needs some way to indicate to the directive where each element they add should go.  
 
 How about requiring a `transclude-to` attribute on each element that acts as a sort of "shipping label"?  
 
@@ -224,7 +230,7 @@ var destinationId = cloneEl.attributes["transclude-to"].value;
 var destination = temp.find('[transclude-id="'+destinationId+'"]');
 ```
 
-3) Lastly, we need to append the `clone` element to its target.
+3) Lastly, we need to append the `cloneEL` to its target destination.
 
 ```javascript
 destination.append(cloneEl);
@@ -241,7 +247,7 @@ angular.forEach(clone, function(cloneEl) {
 
 ```
 
-Aside from some error-checking/validation **TODO**, this is all the processing we have to do.
+Aside from some error-checking/validation, this is all the processing we have to do.
 
 ### The transclude function
 
