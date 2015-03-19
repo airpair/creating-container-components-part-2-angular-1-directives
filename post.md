@@ -457,7 +457,17 @@ angular.module("ot-components")
   return {
     scope: {},
     transclude: true,
-    template: ...,
+    template: `
+      <div id="site">													
+        <header transclude-id="head">	
+          <svg id="logo"></svg>
+        </header>					
+        <nav transclude-id="menu"></nav> 								
+        <main transclude-id="body"></main>								
+        <footer>					
+          © 2015 OpenTable, Inc.
+        </footer>				
+      </div>`,	
     link: function(scope, elem, attr, ctrl, transcludeFn) {
       MultiTransclude.transclude(elem, transcludeFn);
     }
