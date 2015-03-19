@@ -186,6 +186,7 @@ But we're not done.  We still need to add the corresponding labels on the direct
 
 ```javascript
 angular.module("ot-components")
+
 .directive("otSite", function() {
   return {
     transclude: true,
@@ -227,7 +228,7 @@ var destinationId = cloneEl.attributes["transclude-to"].value;
 2) Then, we need to find the element in the directive’s template whose `transclude-id` property matches that ID.
 
 ```javascript
-var destination = temp.find('[transclude-id="'+destinationId+'"]');
+var destination = elem.find('[transclude-id="'+destinationId+'"]');
 ```
 
 3) Lastly, we need to append the `cloneEL` to its target destination.
@@ -241,7 +242,7 @@ If we put that all together, we get:
 ```javascript
 angular.forEach(clone, function(cloneEl) {
   var destinationId = cloneEl.attributes["transclude-to"].value;
-  var destination = temp.find('[transclude-id="'+destinationId+'"]');
+  var destination = elem.find('[transclude-id="'+destinationId+'"]');
   destination.append(cloneEl);
 });
 
@@ -261,7 +262,7 @@ We can't let that happen, so let’s check to see that we actually are able to f
 ```javascript
 angular.forEach(clone, function(cloneEl) {
   var destinationId = cloneEl.attributes["transclude-to"].value;
-  var destination = temp.find('[transclude-id="'+destinationId+'"]');
+  var destination = elem.find('[transclude-id="'+destinationId+'"]');
   if (destination.length) {
     destination.append(cloneEl);
   } else {
@@ -331,9 +332,13 @@ angular.module("ot-components")
     link: function(scope, elem, attr, ctrl, transclude) {
       transclude(function(clone) {
         angular.forEach(clone, function(cloneEl) {
-          var destinationId = ... 
-          var destination = ... 
-          destination.append(cloneEl);
+          var destinationId = cloneEl.attributes["transclude-to"].value;
+          var destination = elem.find('[transclude-id="'+ destinationId +'"]');
+          if (destination.length) {
+            destination.append(cloneEl);
+          } else { 
+            cloneEl.remove();
+          }
         });
       });
     }
@@ -374,9 +379,13 @@ angular.module("ot-components")
     link: function(scope, elem, attr, ctrl, transclude) {
       transclude(function(clone) {
         angular.forEach(clone, function(cloneEl) {
-          var destinationId = ... 
-          var destination = ... 
-          destination.append(cloneEl);
+          var destinationId = cloneEl.attributes["transclude-to"].value;
+          var destination = elem.find('[transclude-id="'+ destinationId +'"]');
+          if (destination.length) {
+            destination.append(cloneEl);
+          } else { 
+            cloneEl.remove();
+          }
         });
       });
     }
@@ -421,11 +430,11 @@ angular.module("ot-components")
 
 .factory("MultiTransclude", function() {
   return {
-    transclude: function(temp, transcludeFn) {
+    transclude: function(elem, transcludeFn) {
       transcludeFn(function(clone) {
         angular.forEach(clone, function(cloneEl) {
           var destinationId = cloneEl.attributes["transclude-to"].value;
-          var destination = temp.find('[transclude-id="'+ destinationId +'"]');
+          var destination = elem.find('[transclude-id="'+ destinationId +'"]');
           if (destination.length) {
             destination.append(cloneEl);
           } else { 
@@ -437,6 +446,27 @@ angular.module("ot-components")
   };
 });
 ```
+
+Now `ot-site` can simply pull in the service, to give us our final implementation:
+
+
+```javascript
+angular.module("ot-components")
+
+.directive("otSite", function(MultiTransclude) {
+  return {
+    scope: {},
+    transclude: true,
+    template: ...,
+    link: function(scope, elem, attr, ctrl, transcludeFn) {
+      MultiTransclude.transclude(elem, transcludeFn);
+    }
+  };
+});
+```
+
+
+
 
 That's it for container components in Angular 1.3!  
 
