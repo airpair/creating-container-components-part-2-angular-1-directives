@@ -365,6 +365,7 @@ Given this standard setup, we should just go ahead and add our isolate scope:
 
 ```javascript
 angular.module("ot-components")
+
 .directive("otSite", function() {
   return {
     scope: {},
@@ -383,7 +384,7 @@ angular.module("ot-components")
 });
 ```
 
-That's our final implementation!  
+That should work! 
 
 If our component user uses the markup from the earlier example:
 
@@ -407,6 +408,35 @@ If our component user uses the markup from the earlier example:
 ...we get the intended output!
 
 ![Final ot-site output](https://content-na.drive.amazonaws.com/cdproxy/templink/_y4Zj0oljkNSvPa5MRNwjQ7m4EqVyzjul7wEWgSFFSQLAYspN?viewBox=1440)
+
+## Making it Reusable
+
+We have a working implementation, but we're not quite finished yet.
+
+We have a large chunk of logic just sitting in our link function, which violates the best practice of keeping link functions/controllers lean.  In addition, it's quite likely that other components would benefit from multiple entry points. So it makes sense to abstract that custom transclusion logic out into a service that can be more widely used.
+
+** MultiTransclude Service**
+```javascript
+angular.module("ot-components")
+
+.factory("MultiTransclude", function() {
+  return {
+    transclude: function(temp, transcludeFn) {
+      transcludeFn(function(clone) {
+        angular.forEach(clone, function(cloneEl) {
+          var destinationId = cloneEl.attributes["transclude-to"].value;
+          var destination = temp.find('[transclude-id="'+ destinationId +'"]');
+          if (destination.length) {
+            destination.append(cloneEl);
+          } else { 
+            cloneEl.remove();
+          }
+        });
+      });
+    }
+  };
+});
+```
 
 That's it for container components in Angular 1.3!  
 
