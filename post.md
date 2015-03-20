@@ -307,7 +307,7 @@ Which leaves us with the `transclude` function in the `controller` and the `link
 
 Mostly, it's execution order.
 
-![Directive life cycle, controller](https://content-na.drive.amazonaws.com/cdproxy/templink/aaKEXw9uELKBNTz0NnKCwqkJIZkgn0kgAbvNt8j1rcELAYspN?viewBox=1440)
+![Directive life cycle, controller](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/Screen%20Shot%202015-03-17%20at%205.34.37%20PM.png)
 
 *Design credit: [Rachael L Moore](http://morewry.com)*
 
@@ -315,7 +315,7 @@ The controller of a parent directive will be instantiated before its child direc
 
 But this order isn’t great for DOM manipulation.  If you try to manipulate the DOM before child directives are linked, the compiler’s linking function might have trouble finding the children to link them properly.
 
-![Directive life cycle, post-link](https://content-na.drive.amazonaws.com/cdproxy/templink/h5iEt_VZs1DpiC-r9Pk5SNTBAfYMtnvbnGVefZeeCvQLAYspN?viewBox=1440)
+![Directive life cycle, post-link](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/Screen%20Shot%202015-03-17%20at%205.34.47%20PM.png)
 
 *Design credit: [Rachael L Moore](http://morewry.com)*
 
@@ -356,7 +356,7 @@ But how will this affect our user’s template or bindings?  Can we transclude a
 
 Absolutely.  Let’s take a look at the scope hierarchy you’d get with an isolate scope on a transcluding directive.  You can see the DOM structure on the left, color-coded by scope, and the matching scopes organized by encapsulation on the right:
 
-![Scope diagram](https://content-na.drive.amazonaws.com/cdproxy/templink/5r83oavt9YkTvpI6El9f7ogockdk_8SrLMEdwd3mlKULAYspN?viewBox=1440)
+![Scope diagram](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/Screen%20Shot%202015-03-17%20at%205.34.28%20PM.png)
 
 *Design credit: Simon Attley*
 
