@@ -9,7 +9,7 @@ In this tutorial, we will be using an Angular 1.3 directive to re-create the `ot
 
 As a reminder, the empty container looks something like this:
 
-![Empty ot-site container](https://content-na.drive.amazonaws.com/cdproxy/templink/IC1Wtxw34nmKQ_xm9_738AvsfDB0OJp9gSvFpn-6SN8LAYspN)
+![Empty ot-site container](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/otsite-empty.png)
 
 We can break it down into 5 parts:
 
@@ -18,7 +18,7 @@ We can break it down into 5 parts:
 
 * 2 static items that come with every usage (logo, footer)
 
-![Empty ot-site container, labeled](https://content-na.drive.amazonaws.com/cdproxy/templink/iaubtyeI-HFVCoeI5jBZ0Ap4FNwC6Jr49H4VCXNTXyMLAYspN)
+![Empty ot-site container, labeled](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/otsite-labeled-wborders.png)
 
 Before we dive into transclusion, let's first build the empty scaffold.  
 
@@ -152,7 +152,7 @@ angular.module("ot-components")
 
 ...we would get something like this:
 
-![Content repeating in ot-site](https://content-na.drive.amazonaws.com/cdproxy/templink/dasXWt-e5efGIZu9jvusOKZhMUMZ3QH6d13NeKZHLbMLAYspN?viewBox=1440)
+![Content repeating in ot-site](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/otsite-ngtransclude.png)
 
 Clearly, that's not ideal.  We wanted each string to render just once in its appropriate section - rather than everything rendering everywhere.
 
@@ -416,7 +416,7 @@ If our component user uses the markup from the earlier example:
 
 ...we get the intended output!
 
-![Final ot-site output](https://content-na.drive.amazonaws.com/cdproxy/templink/_y4Zj0oljkNSvPa5MRNwjQ7m4EqVyzjul7wEWgSFFSQLAYspN?viewBox=1440)
+![Final ot-site output](https://8604d17a51d354cba084d27f632b78fe46e70205.googledrive.com/host/0Bws_6WaNR1DWelh6X1hLcTlBR1E/otsite-final.png)
 
 ## Making it Reusable
 
