@@ -209,7 +209,7 @@ angular.module("ot-components")
 
 We have labels on each side, so now we can write custom DOM manipulation logic to match each element in the user's template to a section of the directive.
 
-Let's step through what that might look like, taking for granted for now that we have access to a clone of the user's content (we'll revisit that later).
+Let's step through what that might look like, taking for granted for now that we have access to a clone of the user's content (we'll revisit that - and where this logic will be inserted - in just a bit).
 
 First thing, we need to loop through every element in the `clone`...
 
