@@ -480,4 +480,6 @@ angular.module("ot-components")
 
 That's it for container components in Angular 1.3!  
 
+You can see a full, working example [here](http://codepen.io/kara/pen/JoVMor?editors=101).
+
 Stay tuned for Part 3, which will cover Angular 2.
